@@ -13,7 +13,7 @@ class Cliente(models.Model):
     
 class Proveedor(models.Model):
     nombre = models.CharField(max_length=100)
-    contacto = models.CharField(max_length=100)
+    direccion = models.CharField(max_length=100)
     telefono = models.CharField(max_length=15)
 
     def __str__(self):

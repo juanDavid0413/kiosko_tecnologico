@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proveedores</title>
+</head>
+<body>
+    <h1>Lista de Proveedores</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proveedor in proveedores %}
+            <tr>
+                <td>{{ proveedor.id}}</td>
+                <td>{{ proveedor.nombre }}</td>
+                <td>{{ proveedor.direccion }}</td>
+                <td>{{ proveedor.telefono}}</td>
+                <td>
+                    <a href="{% url 'editar_proveedor' proveedor.id %}">Editar</a>
+                    <a href="{% url 'eliminar_proveedor' proveedor.id %}">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'crear_proveedor' %}">Agregar Un Nuevo Proveedor</a>
+    <a href="{% url 'inicio' %}">Volver al Inicio</a>
+</body>
+</html>
