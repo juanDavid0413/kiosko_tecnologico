@@ -38,3 +38,5 @@ class DetalleVentaForm(forms.ModelForm):
                 raise forms.ValidationError(f'La cantidad solicitada ({cantidad}) excede el stock disponible ({producto.stock}).')
 
         return cleaned_data
+    
+  

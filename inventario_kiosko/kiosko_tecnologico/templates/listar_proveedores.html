@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proveedores</title>
 </head>
-<body>
+<body style="background-image: url(https://plus.unsplash.com/premium_photo-1661900538689-e2c25124aa35?q=80&w=1595&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh; margin: 0;">
     <h1>Lista de Proveedores</h1>
-    <table>
+    <table border="1" style="background-color: white;border-collapse: collapse; width: 100%;">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nombre</th>
                 <th>Direccion</th>
                 <th>Telefono</th>
@@ -20,19 +19,18 @@
         <tbody>
             {% for proveedor in proveedores %}
             <tr>
-                <td>{{ proveedor.id}}</td>
                 <td>{{ proveedor.nombre }}</td>
                 <td>{{ proveedor.direccion }}</td>
                 <td>{{ proveedor.telefono}}</td>
                 <td>
-                    <a href="{% url 'editar_proveedor' proveedor.id %}">Editar</a>
-                    <a href="{% url 'eliminar_proveedor' proveedor.id %}">Eliminar</a>
+                    <a href="{% url 'editar_proveedor' proveedor.id %}"><button>Editar</button></a>
+                    <a href="{% url 'eliminar_proveedor' proveedor.id %}"><button>Eliminar</button></a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="{% url 'crear_proveedor' %}">Agregar Un Nuevo Proveedor</a>
-    <a href="{% url 'inicio' %}">Volver al Inicio</a>
+    <a href="{% url 'crear_proveedor' %}"><button>Agregar Un Nuevo Proveedor</button></a>
+    <a href="{% url 'inicio' %}"><button>Volver al Inicio</button></a>
 </body>
 </html>

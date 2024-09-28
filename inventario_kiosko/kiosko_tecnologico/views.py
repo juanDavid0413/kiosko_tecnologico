@@ -62,7 +62,6 @@ def crear_factura(request):
         form = FacturaForm()
     return render(request, 'crear_factura.html', {'form': form})
 
-
 def editar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     if request.method == 'POST':
@@ -135,20 +134,6 @@ def eliminar_venta(request, pk):
         return redirect('listar_ventas')
     return render(request, 'eliminar_venta.html', {'ventas':ventas} )
 
-def agregar_productos(request, venta_Id):
-    venta = get_object_or_404(Venta, id=venta_Id)
-    if request.method == 'POST':
-        seleccionar_producto_form = SeleccionarProductoForm(request.POST)
-        if seleccionar_producto_form.is_valid():
-            producto = seleccionar_producto_form.cleaned_data['producto']
-            cantidad = seleccionar_producto_form.cleaned_data['cantidad']
-            venta.productos.add(producto)
-            return redirect('agregar_productos', venta_Id=venta_Id)
-    else:
-        seleccionar_producto_form = SeleccionarProductoForm()
-
-    return render(request, 'añadir_en_venta.html', {'seleccionar_producto_form': seleccionar_producto_form, 'venta': venta})
-
 def agregar_detalle_venta(request, factura_id):
     factura = get_object_or_404(Factura, id=factura_id)
     if request.method == 'POST':
@@ -158,10 +143,8 @@ def agregar_detalle_venta(request, factura_id):
             detalle.factura = factura
             producto = detalle.producto
             if producto.stock >= detalle.cantidad:
-                
                 producto.stock -= detalle.cantidad
                 producto.save()  
-
                 detalle.save()  
                 factura.total = factura.calcular_total()  
                 factura.save()  
@@ -171,7 +154,6 @@ def agregar_detalle_venta(request, factura_id):
                     'form': form,
                     'factura': factura,
                     'productos': Producto.objects.all(),
-                    'error': 'No hay suficiente stock para este producto.'
                 })
     else:
         form = DetalleVentaForm()
@@ -181,5 +163,4 @@ def agregar_detalle_venta(request, factura_id):
         'form': form,
         'factura': factura,
         'productos': productos,
-        'error': None  
     })

@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ventas</title>
 </head>
-<body>
+<body style="background-image: url(https://images.unsplash.com/photo-1647427017067-8f33ccbae493?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh; margin: 0;">
     <h1>Lista De Ventas:</h1>
-    <table border="1" style="border-collapse: collapse; width: 100%;">
+    <table border="1" style="background-color: white;border-collapse: collapse; width: 100%;">
         <thead>
             <tr>
                 <th>Fecha De Venta</th>
@@ -29,14 +29,14 @@
                 </td>
                 <td>{{ venta.total }}</td>
                 <td>
-                    <a href="{% url 'editar_venta' venta.id %}">Editar</a>
-                    <a href="{% url 'eliminar_venta' venta.id %}">Eliminar</a>
+                    <a href="{% url 'editar_venta' venta.id %}"><button>Editar</button></a>
+                    <a href="{% url 'eliminar_venta' venta.id %}"><button>Eliminar</button></a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="{% url 'crear_factura' %}">Agregar Una Nueva Venta</a>
-    <a href="{% url 'inicio' %}">Volver al Inicio</a>
+    <a href="{% url 'crear_factura' %}"><button>Agregar Una Nueva Venta</button></a>
+    <a href="{% url 'inicio' %}"><button>Volver al Inicio</button></a>
 </body>
 </html>

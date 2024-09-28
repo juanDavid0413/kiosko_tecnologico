@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
 </head>
-<body>
+<body style="background-image: url(https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh; margin: 0;">
     <h1>Lista de Productos</h1>
-    <table>
+    <table border="1" style="background-color: white;border-collapse: collapse; width: 100%;">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
                 <th>Precio</th>
@@ -21,21 +20,20 @@
         <tbody>
             {% for producto in productos %}
             <tr>
-                <td>{{ producto.id }}</td>
                 <td>{{ producto.nombre }}</td>
                 <td>{{ producto.descripcion }}</td>
                 <td>{{ producto.precio}}</td>
                 <td>{{ producto.stock}}</td>
                 <td>{{ producto.proveedor}}</td>
                 <td>
-                    <a href="{% url 'editar_producto' producto.id %}">Editar</a>
-                    <a href="{% url 'eliminar_producto' producto.id %}">Eliminar</a>
+                    <a href="{% url 'editar_producto' producto.id %}"><button>Editar</button></a>
+                    <a href="{% url 'eliminar_producto' producto.id %}"><button>Eliminar</button></a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="{% url 'crear_producto' %}">Agregar Nuevo Producto</a>
-    <a href="{% url 'inicio' %}">Volver al Inicio</a>
+    <a href="{% url 'crear_producto' %}"><button>Agregar Nuevo Producto</button></a>
+    <a href="{% url 'inicio' %}"><button>Volver al Inicio</button></a>
 </body>
 </html>

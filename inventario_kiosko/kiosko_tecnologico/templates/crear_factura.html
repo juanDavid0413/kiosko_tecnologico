@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factura</title>
 </head>
-<body>
+<body style="background-image: url(https://images.unsplash.com/photo-1647427017067-8f33ccbae493?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh; margin: 0;">
     <h1>Crear Factura</h1>
+    <h2>Ingrese el nombre del cliente:</h2>
+    <p>¡Si no esta registrado pruebe con un cliente generico o registre como nuevo cliente!</p>
+    <a href="{% url 'crear_cliente' %}"><button>Nuevo Cliente</button></a>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Crear Factura</button>
+    <button type="submit">Añadir Productos</button>
 </form>
-<a href="{% url 'inicio' %}">Volver al Inicio</a>
+<a href="{% url 'inicio' %}"><button>Cancelar</button></a>
 </body>
 </html>
