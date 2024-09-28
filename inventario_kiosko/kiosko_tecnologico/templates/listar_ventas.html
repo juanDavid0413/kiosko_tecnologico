@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas</title>
+</head>
+<body>
+    <h1>Lista De Ventas:</h1>
+    <table border="1" style="border-collapse: collapse; width: 100%;">
+        <thead>
+            <tr>
+                <th>Fecha De Venta</th>
+                <th>Cliente</th>
+                <th>Productos</th>
+                <th>Total</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venta in ventas %}
+            <tr>
+                <td>{{ venta.fecha }}</td>
+                <td>{{ venta.cliente }}</td>
+                <td>
+                    {% for detalle in venta.detalleventa_set.all %}
+                        {{ detalle.cantidad }} de {{ detalle.producto }}{% if not forloop.last %}, {% endif %} 
+                    {% endfor %}
+                </td>
+                <td>{{ venta.total }}</td>
+                <td>
+                    <a href="{% url 'editar_venta' venta.id %}">Editar</a>
+                    <a href="{% url 'eliminar_venta' venta.id %}">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'crear_factura' %}">Agregar Una Nueva Venta</a>
+    <a href="{% url 'inicio' %}">Volver al Inicio</a>
+</body>
+</html>

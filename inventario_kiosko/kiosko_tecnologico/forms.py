@@ -1,5 +1,6 @@
 from django import forms
-from .models import Cliente, Proveedor, Producto, DetalleProducto, Venta
+from .models import Cliente, Proveedor, Producto, DetalleVenta, Factura
+from django.core.exceptions import ValidationError
 
 class ClienteForm(forms.ModelForm):
     class Meta:
@@ -16,12 +17,24 @@ class ProductoForm(forms.ModelForm):
         model = Producto
         fields = ['nombre', 'descripcion', 'precio', 'stock', 'proveedor']
 
-class DetalleProductoForm(forms.ModelForm):
+class FacturaForm(forms.ModelForm):
     class Meta:
-        model = DetalleProducto
-        fields = ['producto', 'especificaciones', 'fecha_vencimiento']
+        model = Factura
+        fields = ['cliente']
 
-class VentaForm(forms.ModelForm):
+
+class DetalleVentaForm(forms.ModelForm):
     class Meta:
-        model = Venta
-        fields = ['cliente', 'producto', 'cantidad', 'total']
+        model = DetalleVenta
+        fields = ['producto', 'cantidad']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        producto = cleaned_data.get('producto')
+        cantidad = cleaned_data.get('cantidad')
+
+        if producto and cantidad:  
+            if cantidad > producto.stock:
+                raise forms.ValidationError(f'La cantidad solicitada ({cantidad}) excede el stock disponible ({producto.stock}).')
+
+        return cleaned_data

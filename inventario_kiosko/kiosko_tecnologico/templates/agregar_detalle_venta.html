@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar En Venta</title>
+</head>
+<body>
+    <h1>Agregar Productos a la Factura #{{ factura.id }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Agregar Producto</button>
+    {% if form.errors %}
+    <ul>
+      {% for field in form %}
+        {% if field.errors %}
+        {% endif %}
+      {% endfor %}          
+    </ul>
+  {% endif %}
+</form>
+
+<h2>Productos en la Factura:</h2>
+<ul>
+    {% for detalle in factura.detalleventa_set.all %}
+        <li>{{ detalle }}</li>
+    {% endfor %}
+</ul>
+<p>Total: {{ factura.total }}</p>
+
+<a href="{% url 'listar_ventas' %}"><button>Terminar y guardar venta</button></a>
+
+</body>
+</html>

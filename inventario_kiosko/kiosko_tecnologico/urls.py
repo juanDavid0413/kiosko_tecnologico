@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (listar_clientes, editar_cliente, crear_cliente, eliminar_cliente, inicio,
                     listar_proveedores, editar_proveedor, crear_proveedor, eliminar_proveedor,
-                    listar_productos, editar_producto, crear_producto, eliminar_producto
+                    listar_productos, editar_producto, crear_producto, eliminar_producto,
+                    listar_ventas, editar_venta, eliminar_venta, agregar_detalle_venta,crear_factura
                     )
 
 urlpatterns = [
@@ -20,5 +21,13 @@ urlpatterns = [
     path('productos/', listar_productos, name='listar_productos' ),
     path('productos/crear', crear_producto, name='crear_producto'), 
     path('producto/editar/<int:pk>', editar_producto, name='editar_producto'), 
-    path('producto/eliminar/<int:pk>', eliminar_producto, name='eliminar_producto')
+    path('producto/eliminar/<int:pk>', eliminar_producto, name='eliminar_producto'),
+
+    path('ventas/', listar_ventas, name='listar_ventas' ),
+    path('crear-factura/', crear_factura, name='crear_factura'), 
+    path('ventas/editar/<int:pk>/', editar_venta, name='editar_venta'), 
+    path('ventas/eliminar/<int:pk>/', eliminar_venta, name='eliminar_venta'), 
+    path('agregar-detalle-venta/<int:factura_id>/', agregar_detalle_venta, name='agregar_detalle_venta'),
+
+    
     ]

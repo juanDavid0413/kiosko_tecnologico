@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 # Create your models here.
 
 class Cliente(models.Model):
@@ -17,8 +17,8 @@ class Proveedor(models.Model):
     telefono = models.CharField(max_length=15)
 
     def __str__(self):
-        return str(self.nombre)    
-    
+        return self.nombre   
+
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.CharField(max_length=300)
@@ -29,20 +29,28 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
     
-class DetalleProducto(models.Model):
-    producto = models.OneToOneField(Producto, on_delete=models.CASCADE)
-    especificaciones = models.TextField()
-    fecha_vencimiento = models.DateField(null=True, blank=True)
+
+    
+class Factura(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    fecha = models.DateTimeField(default=timezone.now)
+    productos = models.ManyToManyField(Producto, through='DetalleVenta')
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
-        return f"Detalles de {self.producto.nombre}"
+        return f"Factura #{self.id} - {self.cliente.nombre}"
+
+    def calcular_total(self):
+        return sum(detalle.subtotal() for detalle in self.detalleventa_set.all())
     
-class Venta(models.Model):
-    fecha_venta = models.DateTimeField(auto_now_add=True,)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+
+class DetalleVenta(models.Model):
+    factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField()
-    total = models.IntegerField()
+    
+    def subtotal(self):
+        return self.cantidad * self.producto.precio
 
     def __str__(self):
-        return f'Venta de {self.cantidad} {self.producto} a {self.cliente}'
+        return f"{self.cantidad} x {self.producto.nombre}"

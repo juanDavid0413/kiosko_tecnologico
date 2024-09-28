@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Producto</title>
+    <title>Eliminar Venta</title>
 </head>
 <body>
-    <h1>Eliminar Producto</h1>
-    <p>¿Estás seguro de que deseas eliminar a {{ producto.nombre }}?</p>
+    <h1>Eliminar Venta</h1>
+    <p>¿Estás seguro de que deseas eliminar esta venta: {{ venta.fecha_venta }} {{ venta.cliente }}?</p>
     <form method="POST">
         {% csrf_token %}
         <button type="submit">Confirmar Eliminación</button>
     </form>
-    <a href="{% url 'listar_productos' %}"><button>Cancelar</button></a>
+    <a href="{% url 'listar_ventas' %}"><button>Cancelar</button></a>
 </body>
 </html>
+
